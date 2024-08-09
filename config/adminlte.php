@@ -320,6 +320,12 @@ return [
                     'icon' => 'fas fa-fw fa-user',
                 ],
 
+                [
+                    'text' => 'Rooms',
+                    'url' => 'room',
+                    'icon' => 'fas fa-fw fa-user',
+                ],
+
 
             ]
 

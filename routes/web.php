@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoomsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SpecializationController;
@@ -37,5 +38,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('subspecialization/store', [SubSpecializationController::class, 'store']);
     Route::get('subspecialization/edit/{id}', [SubSpecializationController::class, 'edit']);
     Route::get('subspecialization/destroy/{id}', [SubSpecializationController::class, 'destroy']);
+
+    Route::get('room', [RoomsController::class, 'index']);
+    Route::get('room/getrecords', [RoomsController::class, 'get_records']);
+    Route::post('room/store', [RoomsController::class, 'store']);
+    Route::get('room/edit/{id}', [RoomsController::class, 'edit']);
+    Route::get('room/destroy/{id}', [RoomsController::class, 'destroy']);
 });
 
