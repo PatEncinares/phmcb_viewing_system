@@ -304,11 +304,27 @@ return [
             'type' => 'fullscreen-widget',
             'topnav_right' => false,
         ],
-       [
-            'text' => 'Specializations',
-            'url' => 'specialization',
-            'icon' => 'fas fa-fw fa-user',
+        [
+            'text' => 'Master Data',
+            'icon' => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text' => 'Specializations',
+                    'url' => 'specialization',
+                    'icon' => 'fas fa-fw fa-user',
+                ],
+
+                [
+                    'text' => 'Sub Specializations',
+                    'url' => 'subspecialization',
+                    'icon' => 'fas fa-fw fa-user',
+                ],
+
+
+            ]
+
         ],
+       
         // Sidebar items:
         // [
         //     'type' => 'sidebar-menu-search',

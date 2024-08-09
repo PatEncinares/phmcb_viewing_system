@@ -30,6 +30,7 @@ Vue.use(VueSimpleAlert);
 
 Vue.component('home-component', require('./components/ExampleComponent.vue').default);
 Vue.component('specialization-component', require('./components/MasterData/SpecializationComponent.vue').default);
+Vue.component('sub-specialization-component', require('./components/MasterData/SubSpecializationComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

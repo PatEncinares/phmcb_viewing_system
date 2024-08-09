@@ -68,6 +68,14 @@ export default {
         }
     },
     methods : {
+        sweetAlert(title, text, type) {
+            this.$fire({
+                title: title,
+                text: text,
+                type: type,
+                timer: 3000
+            });
+        },
 
         showRecords() {
             axios.get('specialization/getrecords').then( response => {
@@ -84,16 +92,15 @@ export default {
         },
 
         store() {
-            axios.post('specialization/store', this.dataValues).then( response =>{
-                this.$fire({
-                            title: "Success",
-                            text: response.data.message,
-                            type: "success",
-                            timer: 3000
-                        });
-                        $('#create-modal').modal('hide');
-                        this.showRecords();
+            axios.post('specialization/store', this.dataValues).then(response => {
+                this.sweetAlert("Success", response.data.message, "success");
+                $('#create-modal').modal('hide');
+                this.showRecords();
+            }).catch(errors => {
+                this.errors = errors.response.data.errors;
+                // this.sweetAlert("Failed", "There was an error saving the specialization.", "error");
             });
+               
         },
 
         editData(id) {
@@ -105,32 +112,18 @@ export default {
         },
 
         destroyData(id) {
-            this.$confirm("Are you sure you want to Delete this Data?", 'Delete?', 'question').then(() => {
-                    axios.get('specialization/destroy/' + id).then(response => {
-                        if(response.status === 200) {
-                            this.$fire({
-                                title: "Success",
-                                text: response.data.message,
-                                type: "success",
-                                timer: 3000
-                            });
-                        }
-                        this.showRecords();
-                    })
-                    .catch(errors => {
-                        if(errors.response.data.message.length > 0) {
-                            this.$fire({
-                                title: "Failed",
-                                text: errors.response.data.message,
-                                type: "error",
-                                timer: 3000
-                            });
-                        }
-                    })
+            this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(() => {
+                axios.get('specialization/destroy/' + id).then(response => {
+                    if (response.status === 200) {
+                        this.sweetAlert("Success", response.data.message, "success");
+                    }
+                    this.showRecords();
+                }).catch(errors => {
+                    if (errors.response.data.message.length > 0) {
+                        this.sweetAlert("Failed", errors.response.data.message, "error");
+                    }
                 });
-
-
-            
+            });
         },
     },
 
