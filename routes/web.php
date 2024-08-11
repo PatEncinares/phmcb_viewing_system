@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DoctorDetailsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,14 @@ Auth::routes();
 // });
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/', function () {
+    Route::get('/home', function () {
         return view('/home');
     });
+
+    Route::get('doctordetails', [DoctorDetailsController::class, 'index']);
+    Route::get('doctordetails/getrecords', [DoctorDetailsController::class, 'get_records']);
+    Route::post('doctordetails/store', [DoctorDetailsController::class, 'store']);
+    Route::get('doctordetails/edit/{id}', [DoctorDetailsController::class, 'edit']);
+    Route::get('doctordetails/destory/{id}', [DoctorDetailsController::class, 'destroy']);
 });
 
