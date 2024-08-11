@@ -30,6 +30,13 @@ Vue.use(VueSimpleAlert);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+// PARTIALS
+Vue.component('breadcrumb-component', require('./components/partials/BreadCrumbComponent.vue').default);
+Vue.component('form-component', require('./components/partials/FormComponent.vue').default);
+Vue.component('modal-component', require('./components/partials/ModalComponent.vue').default);
+
+//MASTER DATA
+Vue.component('doctor-details-component', require('./components/masterData/DoctorDetailsComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
