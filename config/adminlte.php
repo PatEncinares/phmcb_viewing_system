@@ -321,7 +321,7 @@ return [
                 ],
                 [
                     'text' => 'Rooms',
-                    'url' => 'admin/settings',
+                    'url' => 'room',
                     'icon' => 'fas fa-fw fa-user',
                 ],
             ]

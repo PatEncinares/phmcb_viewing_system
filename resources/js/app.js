@@ -37,6 +37,7 @@ Vue.component('modal-component', require('./components/partials/ModalComponent.v
 
 //MASTER DATA
 Vue.component('doctor-details-component', require('./components/masterData/DoctorDetailsComponent.vue').default);
+Vue.component('rooms-component', require('./components/masterData/RoomsComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

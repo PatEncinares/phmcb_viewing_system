@@ -68,7 +68,7 @@ class DoctorDetailsController extends Controller
     //     }
     // }
 
-    return response()->json(['message' => 'Doctor added successfully.']);
+    return response()->json(['message' => 'Data successfully added.']);
 
     }
 
