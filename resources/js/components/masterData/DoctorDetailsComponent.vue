@@ -96,7 +96,7 @@ export default {
             columns : ['id', 'full_name', 'secretary_contact_number', 'status', 'action'],
             options : {
                 headings : {
-                    id : 'ID',
+                    id : '#',
                     full_name : 'Name',
                     secretary_contact_number : 'Secretary Contact #',
                     status : 'Status',
@@ -225,7 +225,7 @@ export default {
 
         destroyData(props) {
             this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(() => {
-                axios.get('doctordetails/destory/' + props.data.id).then(response => {
+                axios.get('doctordetails/destroy/' + props.data.id).then(response => {
                     if (response.status === 200) {
                         this.sweetAlert("Success", response.data.message, "success");
                     }
