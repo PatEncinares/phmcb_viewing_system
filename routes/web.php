@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\DoctorDetailsController;
-use App\Http\Controllers\RoomsController;
-use App\Http\Controllers\SpecializationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoomsController;
+use App\Http\Controllers\DoctorDetailsController;
+use App\Http\Controllers\SpecializationController;
+use App\Http\Controllers\SubSpecializationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('specialization/store', [SpecializationController::class, 'store']);
     Route::get('specialization/edit/{id}', [SpecializationController::class, 'edit']);
     Route::get('specialization/destroy/{id}', [SpecializationController::class, 'destroy']);
+
+    Route::get('subspecialization', [SubSpecializationController::class, 'index']);
+    Route::get('subspecialization/getrecords', [SubSpecializationController::class, 'get_records']);
+    Route::post('subspecialization/store', [SubSpecializationController::class, 'store']);
+    Route::get('subspecialization/edit/{id}', [SubSpecializationController::class, 'edit']);
+    Route::get('subspecialization/destroy/{id}', [SubSpecializationController::class, 'destroy']);
 
 
 });

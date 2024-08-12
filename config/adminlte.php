@@ -329,6 +329,11 @@ return [
                     'url' => 'specialization',
                     'icon' => 'fa fa-minus',
                 ],
+                [
+                    'text' => 'Sub Specializations',
+                    'url' => 'subspecialization',
+                    'icon' => 'fa fa-minus',
+                ],
             ]
         ],
       
