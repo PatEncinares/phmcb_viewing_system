@@ -5332,6 +5332,124 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/HmoComponent.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/HmoComponent.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _partials_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../partials/FormComponent */ "./resources/js/components/partials/FormComponent.vue");
+/* harmony import */ var _partials_ModalComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../partials/ModalComponent */ "./resources/js/components/partials/ModalComponent.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      errors: [],
+      dataValues: [],
+      dataTable: [],
+      columns: ['id', 'full_name', 'name', 'action'],
+      options: {
+        headings: {
+          id: '#',
+          full_name: 'Doctor',
+          name: 'Specialization Name',
+          action: 'Actions'
+        },
+        filterable: false,
+        sortable: ['id']
+      },
+      doctors: [],
+      modalId: 'modal-hmo',
+      modalTitle: 'Add HMO',
+      modalSize: '',
+      fieldDisabled: true,
+      isEdit: false
+    };
+  },
+  components: {
+    FormComponent: _partials_FormComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ModalComponent: _partials_ModalComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  methods: {
+    sweetAlert: function sweetAlert(title, text, type) {
+      this.$fire({
+        title: title,
+        text: text,
+        type: type,
+        timer: 3000
+      });
+    },
+    clearForm: function clearForm() {
+      this.dataValues = {
+        doctor_detail_id: '',
+        name: ''
+      };
+    },
+    loadRecords: function loadRecords() {
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('hmo/getrecords').then(function (response) {
+        _this.dataTable = response.data.data;
+        _this.doctors = response.data.doctors;
+      });
+    },
+    createData: function createData() {
+      this.clearForm();
+      this.isEdit = false;
+      $('#' + this.modalId).modal('show');
+    },
+    storeData: function storeData() {
+      var _this2 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('hmo/store', this.dataValues).then(function (response) {
+        _this2.sweetAlert('Success', response.data.message, 'success');
+        $('#' + _this2.modalId).modal('hide');
+        _this2.loadRecords();
+      })["catch"](function (error) {
+        if (error.response && error.response.data.errors) {
+          _this2.errors = error.response.data.errors;
+        }
+      });
+    },
+    editData: function editData(props) {
+      var _this3 = this;
+      this.modalTitle = 'Edit HMO';
+      this.isEdit = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('hmo/edit/' + props.data.id).then(function (response) {
+        _this3.dataValues = response.data.data;
+        $('#' + _this3.modalId).modal('show');
+      });
+    },
+    destroyData: function destroyData(props) {
+      var _this4 = this;
+      this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get('hmo/destroy/' + props.data.id).then(function (response) {
+          if (response.status === 200) {
+            _this4.sweetAlert("Success", response.data.message, "success");
+          }
+          _this4.loadRecords();
+        })["catch"](function (errors) {
+          if (errors.response.data.message.length > 0) {
+            _this4.sweetAlert("Failed", errors.response.data.message, "error");
+          }
+        });
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadRecords();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/RoomsComponent.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/RoomsComponent.vue?vue&type=script&lang=js ***!
@@ -6129,6 +6247,145 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/HmoComponent.vue?vue&type=template&id=96255e8a":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/HmoComponent.vue?vue&type=template&id=96255e8a ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("breadcrumb-component", {
+    attrs: {
+      parent_title: "Master Data",
+      current_title: "Health Maintenance Organization"
+    }
+  }), _vm._v(" "), _c("FormComponent", {
+    attrs: {
+      data: _vm.dataTable,
+      columns: _vm.columns,
+      options: _vm.options,
+      withTable: true,
+      withUserControl: true
+    },
+    on: {
+      addClicked: _vm.createData,
+      viewClicked: _vm.editData,
+      deleteClicked: _vm.destroyData
+    }
+  }), _vm._v(" "), _c("ModalComponent", {
+    attrs: {
+      id: _vm.modalId,
+      title: _vm.modalTitle,
+      size: _vm.modalSize
+    }
+  }, [_c("template", {
+    slot: "modalBody"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Doctor")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dataValues.doctor_detail_id,
+      expression: "dataValues.doctor_detail_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "",
+      id: ""
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dataValues, "doctor_detail_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      disabled: "",
+      selected: ""
+    }
+  }, [_vm._v("Select Doctor")]), _vm._v(" "), _vm._l(_vm.doctors, function (item) {
+    return _c("option", {
+      domProps: {
+        value: item.id
+      }
+    }, [_vm._v(" " + _vm._s(item.full_name))]);
+  })], 2), _vm._v(" "), _vm.errors.doctor_detail_id ? _c("div", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.doctor_detail_id[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "col-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Name")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dataValues.name,
+      expression: "dataValues.name"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text"
+    },
+    domProps: {
+      value: _vm.dataValues.name
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.dataValues, "name", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _vm.errors.name ? _c("div", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.name[0]))]) : _vm._e()])])]), _vm._v(" "), _c("template", {
+    slot: "modalFooter"
+  }, [_c("div", {
+    staticClass: "text-right"
+  }, [_c("button", {
+    staticClass: "btn btn-primary",
+    on: {
+      click: _vm.storeData
+    }
+  }, [_vm._v("Save Data")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark",
+    attrs: {
+      "data-bs-dismiss": "modal"
+    }
+  }, [_vm._v("Close")])])])], 2), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "appendTable"
+    }
+  })], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/RoomsComponent.vue?vue&type=template&id=771ad88d":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/RoomsComponent.vue?vue&type=template&id=771ad88d ***!
@@ -6863,6 +7120,7 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('doctor-details-component'
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('rooms-component', (__webpack_require__(/*! ./components/masterData/RoomsComponent.vue */ "./resources/js/components/masterData/RoomsComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('specialization-component', (__webpack_require__(/*! ./components/masterData/SpecializationComponent.vue */ "./resources/js/components/masterData/SpecializationComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('sub-specialization-component', (__webpack_require__(/*! ./components/masterData/SubSpecializationComponent.vue */ "./resources/js/components/masterData/SubSpecializationComponent.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('hmo-component', (__webpack_require__(/*! ./components/masterData/HmoComponent.vue */ "./resources/js/components/masterData/HmoComponent.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -34230,6 +34488,45 @@ component.options.__file = "resources/js/components/masterData/DoctorDetailsComp
 
 /***/ }),
 
+/***/ "./resources/js/components/masterData/HmoComponent.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/masterData/HmoComponent.vue ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HmoComponent_vue_vue_type_template_id_96255e8a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HmoComponent.vue?vue&type=template&id=96255e8a */ "./resources/js/components/masterData/HmoComponent.vue?vue&type=template&id=96255e8a");
+/* harmony import */ var _HmoComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HmoComponent.vue?vue&type=script&lang=js */ "./resources/js/components/masterData/HmoComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HmoComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HmoComponent_vue_vue_type_template_id_96255e8a__WEBPACK_IMPORTED_MODULE_0__.render,
+  _HmoComponent_vue_vue_type_template_id_96255e8a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/masterData/HmoComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/masterData/RoomsComponent.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/components/masterData/RoomsComponent.vue ***!
@@ -34500,6 +34797,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/masterData/HmoComponent.vue?vue&type=script&lang=js":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/masterData/HmoComponent.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HmoComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HmoComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/HmoComponent.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HmoComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/masterData/RoomsComponent.vue?vue&type=script&lang=js":
 /*!***************************************************************************************!*\
   !*** ./resources/js/components/masterData/RoomsComponent.vue?vue&type=script&lang=js ***!
@@ -34626,6 +34939,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorDetailsComponent_vue_vue_type_template_id_c864cd7c__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorDetailsComponent_vue_vue_type_template_id_c864cd7c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DoctorDetailsComponent.vue?vue&type=template&id=c864cd7c */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/DoctorDetailsComponent.vue?vue&type=template&id=c864cd7c");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/masterData/HmoComponent.vue?vue&type=template&id=96255e8a":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/masterData/HmoComponent.vue?vue&type=template&id=96255e8a ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HmoComponent_vue_vue_type_template_id_96255e8a__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HmoComponent_vue_vue_type_template_id_96255e8a__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HmoComponent_vue_vue_type_template_id_96255e8a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HmoComponent.vue?vue&type=template&id=96255e8a */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/masterData/HmoComponent.vue?vue&type=template&id=96255e8a");
 
 
 /***/ }),

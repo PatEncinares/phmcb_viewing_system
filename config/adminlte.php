@@ -334,6 +334,11 @@ return [
                     'url' => 'subspecialization',
                     'icon' => 'fa fa-minus',
                 ],
+                [
+                    'text' => 'HMO',
+                    'url' => 'hmo',
+                    'icon' => 'fa fa-minus',
+                ],
             ]
         ],
       

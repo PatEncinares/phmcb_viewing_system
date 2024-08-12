@@ -40,6 +40,7 @@ Vue.component('doctor-details-component', require('./components/masterData/Docto
 Vue.component('rooms-component', require('./components/masterData/RoomsComponent.vue').default);
 Vue.component('specialization-component', require('./components/masterData/SpecializationComponent.vue').default);
 Vue.component('sub-specialization-component', require('./components/masterData/SubSpecializationComponent.vue').default);
+Vue.component('hmo-component', require('./components/masterData/HmoComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
