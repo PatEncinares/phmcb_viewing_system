@@ -42,8 +42,7 @@ class SpecializationController extends Controller
 
     public function edit($id) {
         return response()->json([
-            'data' => Specialization::where('id', $id)
-            ->first(),
+            'data' => Specialization::where('id', $id)->first(),
         ]);
     }
 
