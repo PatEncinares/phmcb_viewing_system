@@ -5,7 +5,7 @@ style scoped>
 </style>
 <template>
     <div>
-        <breadcrumb-component parent_title="Master Data" current_title="Rooms"></breadcrumb-component>
+        <breadcrumb-component parent_title="Master Data" current_title="Specializations"></breadcrumb-component>
 
         <FormComponent 
             :data="dataTable" 
@@ -37,21 +37,9 @@ style scoped>
                     </div>
 
                     <div class="col-12">
-                        <label for="">Building</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.building_name">
-                                <option disabled selected>Select Building</option>
-                                <option value="MAB1">MAB1</option>
-                                <option value="MAB2">MAB2</option>
-                                <option value="JONELTA">JONELTA</option>
-                                <option value="Hospital Main">Hospital Main</option>
-                            </select>
-                                <div class="text-danger" v-if="errors.building_name">{{ errors.building_name[0] }}</div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="">Room</label>
-                            <input type="text" class="form-control" v-model="dataValues.room_number">
-                                <div class="text-danger" v-if="errors.room_number">{{ errors.room_number[0] }}</div>
+                        <label for="">Specialization</label>
+                        <input type="text" class="form-control" v-model="dataValues.name">
+                                <div class="text-danger" v-if="errors.name">{{ errors.name[0] }}</div>
                     </div>
                 </div>
             </template>
@@ -78,13 +66,12 @@ export default {
 
             ],   
             dataTable : [],
-            columns : ['id', 'full_name', 'building_name', 'room_number', 'action'],
+            columns : ['id', 'full_name', 'name', 'action'],
             options : {
                 headings : {
                     id : '#',
                     full_name : 'Doctor',
-                    building_name : 'Building',
-                    room_number : 'Room #',
+                    name : 'Specialization Name',
                     action : 'Actions',
                 },
 
@@ -92,8 +79,8 @@ export default {
                 sortable: ['id'],
             },
             doctors : [],
-            modalId: 'modal-rooms',
-            modalTitle: 'Add Room',
+            modalId: 'modal-specialization',
+            modalTitle: 'Add Specialization',
             modalSize: '',
             fieldDisabled: true,
             isEdit: false,
@@ -120,13 +107,12 @@ export default {
         clearForm() {
             this.dataValues = {
                 doctor_detail_id : '',
-                building_name : '',
-                room_number : '',
+                name : '',
             };
         },
 
         loadRecords() {
-            axios.get('room/getrecords').then( response => {
+            axios.get('specialization/getrecords').then( response => {
                 this.dataTable = response.data.data;
                 this.doctors = response.data.doctors;
 
@@ -141,9 +127,8 @@ export default {
             $('#' + this.modalId).modal('show');
         },
 
-
         storeData() {
-            axios.post('room/store', this.dataValues)
+            axios.post('specialization/store', this.dataValues)
             .then(response => {
                 this.sweetAlert('Success', response.data.message, 'success');
                 $('#' + this.modalId).modal('hide');
@@ -159,7 +144,7 @@ export default {
         editData(props) {
             this.modalTitle = 'Edit Room';
             this.isEdit = true;
-            axios.get('room/edit/' + props.data.id).then( response => {
+            axios.get('specialization/edit/' + props.data.id).then( response => {
                 this.dataValues = response.data.data;
                 $('#' + this.modalId).modal('show');
             });
@@ -168,7 +153,7 @@ export default {
 
         destroyData(props) {
             this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(() => {
-                axios.get('room/destroy/' + props.data.id).then(response => {
+                axios.get('specialization/destroy/' + props.data.id).then(response => {
                     if (response.status === 200) {
                         this.sweetAlert("Success", response.data.message, "success");
                     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DoctorDetailsController;
 use App\Http\Controllers\RoomsController;
+use App\Http\Controllers\SpecializationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('room/store', [RoomsController::class, 'store']);
     Route::get('room/edit/{id}', [RoomsController::class, 'edit']);
     Route::get('room/destroy/{id}', [RoomsController::class, 'destroy']);
+
+    Route::get('specialization', [SpecializationController::class, 'index']);
+    Route::get('specialization/getrecords', [SpecializationController::class, 'get_records']);
+    Route::post('specialization/store', [SpecializationController::class, 'store']);
+    Route::get('specialization/edit/{id}', [SpecializationController::class, 'edit']);
+    Route::get('specialization/destroy/{id}', [SpecializationController::class, 'destroy']);
+
+
 });
 
