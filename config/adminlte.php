@@ -317,12 +317,17 @@ return [
                 [
                     'text' => 'Doctors',
                     'url' => 'doctordetails',
-                    'icon' => 'fas fa-fw fa-user',
+                    'icon' => 'fa fa-minus',
                 ],
                 [
                     'text' => 'Rooms',
                     'url' => 'room',
-                    'icon' => 'fas fa-fw fa-user',
+                    'icon' => 'fa fa-minus',
+                ],
+                [
+                    'text' => 'Specializations',
+                    'url' => 'specialization',
+                    'icon' => 'fa fa-minus',
                 ],
             ]
         ],
