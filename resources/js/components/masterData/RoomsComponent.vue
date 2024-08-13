@@ -28,30 +28,19 @@ style scoped>
             <template slot="modalBody">
                 <div class="row">
                     <div class="col-12">
-                        <label for="">Doctor</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.doctor_detail_id">
-                                <option disabled selected>Select Doctor</option>
-                                <option v-for="item in doctors" :value="item.id"> {{ item.full_name }}</option>
-                            </select>
-                                <div class="text-danger" v-if="errors.doctor_detail_id">{{ errors.doctor_detail_id[0] }}</div>
-                    </div>
-
-                    <div class="col-12">
                         <label for="">Building</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.building_name">
+                            <select class="form-control" name="" id="" v-model="dataValues.building_id">
                                 <option disabled selected>Select Building</option>
-                                <option value="MAB1">MAB1</option>
-                                <option value="MAB2">MAB2</option>
-                                <option value="JONELTA">JONELTA</option>
-                                <option value="Hospital Main">Hospital Main</option>
+                                <option v-for="item in buildings" :value="item.id"> {{ item.name }} </option>
                             </select>
-                                <div class="text-danger" v-if="errors.building_name">{{ errors.building_name[0] }}</div>
+                            <div class="text-danger" v-if="errors.building_id">{{ errors.building_id[0] }}</div>
                     </div>
-
+                </div>
+                <div class="row">
                     <div class="col-12">
-                        <label for="">Room</label>
-                            <input type="text" class="form-control" v-model="dataValues.room_number">
-                                <div class="text-danger" v-if="errors.room_number">{{ errors.room_number[0] }}</div>
+                        <label for="">Name</label>
+                            <input class="form-control" type="text" name="" id="" v-model="dataValues.name">
+                            <div class="text-danger" v-if="errors.name">{{ errors.name[0] }}</div>
                     </div>
                 </div>
             </template>
@@ -78,22 +67,22 @@ export default {
 
             ],   
             dataTable : [],
-            columns : ['id', 'full_name', 'building_name', 'room_number', 'action'],
+            columns : ['id', 'building_name' ,'name', 'action'],
             options : {
                 headings : {
                     id : '#',
-                    full_name : 'Doctor',
-                    building_name : 'Building',
-                    room_number : 'Room #',
+                    building_name : 'Building Name',
+                    name : 'Name',
                     action : 'Actions',
                 },
 
                 filterable: false,
                 sortable: ['id'],
             },
-            doctors : [],
-            modalId: 'modal-rooms',
-            modalTitle: 'Add Room',
+
+            buildings : [],
+            modalId: 'modal-buildings',
+            modalTitle: 'Add Building',
             modalSize: '',
             fieldDisabled: true,
             isEdit: false,
@@ -119,18 +108,15 @@ export default {
 
         clearForm() {
             this.dataValues = {
-                doctor_detail_id : '',
-                building_name : '',
-                room_number : '',
+                building_id : '',
+                name : '',
             };
         },
 
         loadRecords() {
             axios.get('room/getrecords').then( response => {
                 this.dataTable = response.data.data;
-                this.doctors = response.data.doctors;
-
-                console.log(response.data.doctors);
+                this.buildings = response.data.buildings;
             });
         },
 

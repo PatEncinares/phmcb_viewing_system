@@ -16,8 +16,7 @@ class DoctorDetailsController extends Controller
  
     public function get_records() {
         return response()->json([
-            'data' => DoctorDetails::select('id',DB::raw("CONCAT(last_name, ', ', first_name, ' ', middle_name)as full_name"), 'secretary_contact_number', 'status')
-            ->get(),
+            'data' => DoctorDetails::select('id',DB::raw("CONCAT(last_name, ', ', first_name, ' ', middle_name)as full_name"), 'secretary_contact_number', 'status', 'schedule', 'remarks')->get(),
         ]);
     }
 
@@ -42,6 +41,8 @@ class DoctorDetailsController extends Controller
         $data->middle_name = $request->middle_name;
         $data->secretary_contact_number = $request->secretary_contact_number;
         $data->status = $request->status;   
+        $data->schedule = $request->schedule;
+        $data->remarks = $request->remarks;
         $data->save();
 
     //    // Check if file is present

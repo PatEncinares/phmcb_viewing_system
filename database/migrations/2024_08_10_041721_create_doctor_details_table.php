@@ -20,6 +20,8 @@ class CreateDoctorDetailsTable extends Migration
             $table->string('middle_name');
             $table->string('secretary_contact_number');
             $table->string('status');
+            $table->text('schedule')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

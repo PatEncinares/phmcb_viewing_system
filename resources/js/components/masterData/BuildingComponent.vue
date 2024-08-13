@@ -5,7 +5,7 @@ style scoped>
 </style>
 <template>
     <div>
-        <breadcrumb-component parent_title="Master Data" current_title="Sub Specializations"></breadcrumb-component>
+        <breadcrumb-component parent_title="Master Data" current_title="Buildings"></breadcrumb-component>
 
         <FormComponent 
             :data="dataTable" 
@@ -28,18 +28,9 @@ style scoped>
             <template slot="modalBody">
                 <div class="row">
                     <div class="col-12">
-                        <label for="">Specialization</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.specialization_id">
-                                <option disabled selected>Select Specialization</option>
-                                <option v-for="item in specializations" :value="item.id"> {{ item.name }}</option>
-                            </select>
-                                <div class="text-danger" v-if="errors.doctor_detail_id">{{ errors.doctor_detail_id[0] }}</div>
-                    </div>
-
-                    <div class="col-12">
                         <label for="">Name</label>
-                        <input type="text" class="form-control" v-model="dataValues.name">
-                                <div class="text-danger" v-if="errors.name">{{ errors.name[0] }}</div>
+                            <input class="form-control" type="text" name="" id="" v-model="dataValues.name">
+                            <div class="text-danger" v-if="errors.name">{{ errors.name[0] }}</div>
                     </div>
                 </div>
             </template>
@@ -66,11 +57,10 @@ export default {
 
             ],   
             dataTable : [],
-            columns : ['id', 'specialization_name', 'name', 'action'],
+            columns : ['id', 'name', 'action'],
             options : {
                 headings : {
                     id : '#',
-                    specialization_name : 'Specialization',
                     name : 'Name',
                     action : 'Actions',
                 },
@@ -78,9 +68,8 @@ export default {
                 filterable: false,
                 sortable: ['id'],
             },
-            specializations : [],
-            modalId: 'modal-sub-specialization',
-            modalTitle: 'Add Sub Specialization',
+            modalId: 'modal-buildings',
+            modalTitle: 'Add Building',
             modalSize: '',
             fieldDisabled: true,
             isEdit: false,
@@ -106,17 +95,13 @@ export default {
 
         clearForm() {
             this.dataValues = {
-                doctor_detail_id : '',
                 name : '',
             };
         },
 
         loadRecords() {
-            axios.get('subspecialization/getrecords').then( response => {
+            axios.get('building/getrecords').then( response => {
                 this.dataTable = response.data.data;
-                this.specializations = response.data.specializations;
-
-                console.log(response.data.doctors);
             });
         },
 
@@ -127,8 +112,9 @@ export default {
             $('#' + this.modalId).modal('show');
         },
 
+
         storeData() {
-            axios.post('subspecialization/store', this.dataValues)
+            axios.post('building/store', this.dataValues)
             .then(response => {
                 this.sweetAlert('Success', response.data.message, 'success');
                 $('#' + this.modalId).modal('hide');
@@ -142,9 +128,9 @@ export default {
         },
 
         editData(props) {
-            this.modalTitle = 'Edit Sub Specialization';
+            this.modalTitle = 'Edit Room';
             this.isEdit = true;
-            axios.get('subspecialization/edit/' + props.data.id).then( response => {
+            axios.get('building/edit/' + props.data.id).then( response => {
                 this.dataValues = response.data.data;
                 $('#' + this.modalId).modal('show');
             });
@@ -153,7 +139,7 @@ export default {
 
         destroyData(props) {
             this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(() => {
-                axios.get('subspecialization/destroy/' + props.data.id).then(response => {
+                axios.get('building/destroy/' + props.data.id).then(response => {
                     if (response.status === 200) {
                         this.sweetAlert("Success", response.data.message, "success");
                     }

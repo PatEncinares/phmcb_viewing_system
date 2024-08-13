@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BuildingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomsController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\DoctorDetailsController;
 use App\Http\Controllers\HmoController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\SubSpecializationController;
+use App\Models\Building;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,12 +36,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('doctordetails/edit/{id}', [DoctorDetailsController::class, 'edit']);
     Route::get('doctordetails/destroy{id}', [DoctorDetailsController::class, 'destroy']);
 
-    Route::get('room', [RoomsController::class, 'index']);
-    Route::get('room/getrecords', [RoomsController::class, 'get_records']);
-    Route::post('room/store', [RoomsController::class, 'store']);
-    Route::get('room/edit/{id}', [RoomsController::class, 'edit']);
-    Route::get('room/destroy/{id}', [RoomsController::class, 'destroy']);
-
     Route::get('specialization', [SpecializationController::class, 'index']);
     Route::get('specialization/getrecords', [SpecializationController::class, 'get_records']);
     Route::post('specialization/store', [SpecializationController::class, 'store']);
@@ -57,6 +53,20 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('hmo/store', [HmoController::class, 'store']);
     Route::get('hmo/edit/{id}', [HmoController::class, 'edit']);
     Route::get('hmo/destroy/{id}', [HmoController::class, 'destroy']);
+
+    Route::get('building', [BuildingController::class, 'index']);
+    Route::get('building/getrecords', [BuildingController::class, 'get_records']);
+    Route::post('building/store', [BuildingController::class, 'store']);
+    Route::get('building/edit/{id}', [BuildingController::class, 'edit']);
+    Route::get('building/destroy/{id}', [BuildingController::class, 'destroy']);
+
+    Route::get('room', [RoomsController::class, 'index']);
+    Route::get('room/getrecords', [RoomsController::class, 'get_records']);
+    Route::post('room/store', [RoomsController::class, 'store']);
+    Route::get('room/edit/{id}', [RoomsController::class, 'edit']);
+    Route::get('room/destroy/{id}', [RoomsController::class, 'destroy']);
+
+ 
 
 
 });
