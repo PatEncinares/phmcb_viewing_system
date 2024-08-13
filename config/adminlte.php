@@ -348,7 +348,14 @@ return [
                 
             ]
         ],
+        [
+            'text' => 'Doctor Specialization',
+            'url' => 'doctor_specialization',
+            'icon' => 'fa fa-user-md',
+        ],
       
+
+       
         // [
         //     'text' => 'change_password',
         //     'url' => 'admin/settings',

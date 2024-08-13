@@ -28,12 +28,13 @@ Vue.use(VueSimpleAlert);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('home-component', require('./components/ExampleComponent.vue').default);
 
 // PARTIALS
 Vue.component('breadcrumb-component', require('./components/partials/BreadCrumbComponent.vue').default);
 Vue.component('form-component', require('./components/partials/FormComponent.vue').default);
 Vue.component('modal-component', require('./components/partials/ModalComponent.vue').default);
+// END OF PARTIALS
 
 //MASTER DATA
 Vue.component('doctor-details-component', require('./components/masterData/DoctorDetailsComponent.vue').default);
@@ -42,6 +43,14 @@ Vue.component('sub-specialization-component', require('./components/masterData/S
 Vue.component('hmo-component', require('./components/masterData/HmoComponent.vue').default);
 Vue.component('building-component', require('./components/masterData/BuildingComponent.vue').default);
 Vue.component('rooms-component', require('./components/masterData/RoomsComponent.vue').default);
+// END OF MASTER DATA
+
+
+//DOCTOR SPECIALIZATION
+Vue.component('doctor-specialization-component', require('./components/DoctorSpecializationComponent.vue').default);
+
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

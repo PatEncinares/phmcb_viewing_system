@@ -5,7 +5,7 @@ style scoped>
 </style>
 <template>
     <div>
-        <breadcrumb-component parent_title="Master Data" current_title="Rooms"></breadcrumb-component>
+        <breadcrumb-component parent_title="Master Data" current_title="Doctor Specializations"></breadcrumb-component>
 
         <FormComponent 
             :data="dataTable" 
@@ -28,19 +28,30 @@ style scoped>
             <template slot="modalBody">
                 <div class="row">
                     <div class="col-12">
-                        <label for="">Building</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.building_id">
-                                <option disabled selected>Select Building</option>
-                                <option v-for="item in buildings" :value="item.id"> {{ item.name }} </option>
+                        <label for="">Doctor</label>
+                            <select class="form-control" name="" id="" v-model="dataValues.doctor_detail_id">
+                                <option disabled selected>Select Doctor</option>
+                                <option v-for="item in doctors" :value="item.id"> {{ item.full_name }}</option>
                             </select>
-                            <div class="text-danger" v-if="errors.building_id">{{ errors.building_id[0] }}</div>
+                                <div class="text-danger" v-if="errors.doctor_detail_id">{{ errors.doctor_detail_id[0] }}</div>
                     </div>
-                </div>
-                <div class="row">
+
                     <div class="col-12">
-                        <label for="">Name</label>
-                            <input class="form-control" type="text" name="" id="" v-model="dataValues.name">
-                            <div class="text-danger" v-if="errors.name">{{ errors.name[0] }}</div>
+                        <label for="">Specialization</label>
+                            <select class="form-control" name="" id="" v-model="dataValues.specialization_id" v-on:change="getSubSpecializationBySpecialization(dataValues.specialization_id)">
+                                <option disabled selected>Select Specialization</option>
+                                <option v-for="item in specializations" :value="item.id"> {{ item.name }}</option>
+                            </select>
+                                <div class="text-danger" v-if="errors.specialization_id">{{ errors.specialization_id[0] }}</div>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="">Sub Specialization</label>
+                            <select class="form-control" name="" id="" v-model="dataValues.sub_specialization_id">
+                                <option disabled selected>Select Sub Specialization</option>
+                                <option v-for="item in sub_specializations" :value="item.id"> {{ item.name }}</option>
+                            </select>
+                                <div class="text-danger" v-if="errors.sub_specialization_id">{{ errors.sub_specialization_id[0] }}</div>
                     </div>
                 </div>
             </template>
@@ -57,8 +68,8 @@ style scoped>
 </template>
 <script>
 import axios from 'axios';
-import FormComponent from "../partials/FormComponent";
-import ModalComponent from "../partials/ModalComponent";
+import FormComponent from "./partials/FormComponent";
+import ModalComponent from "./partials/ModalComponent";
 export default {
     data() {
         return {
@@ -67,22 +78,24 @@ export default {
 
             ],   
             dataTable : [],
-            columns : ['id', 'building_name' ,'name', 'action'],
+            columns : ['id', 'full_name',  'specialization_name', 'sub_specialization_name', 'action'],
             options : {
                 headings : {
                     id : '#',
-                    building_name : 'Building Name',
-                    name : 'Name',
+                    full_name : 'Doctor',
+                    specialization_name : 'Specialization',
+                    sub_specialization_name : 'Sub Specialization',
                     action : 'Actions',
                 },
 
                 filterable: false,
                 sortable: ['id'],
             },
-
-            buildings : [],
-            modalId: 'modal-rooms',
-            modalTitle: 'Add Room',
+            doctors : [],
+            specializations : [],
+            sub_specializations : [],
+            modalId: 'modal-sub-specialization',
+            modalTitle: 'Add Sub Specialization',
             modalSize: '',
             fieldDisabled: true,
             isEdit: false,
@@ -108,15 +121,17 @@ export default {
 
         clearForm() {
             this.dataValues = {
-                building_id : '',
-                name : '',
+                doctor_detail_id : '',
+                specialization_id : '',
+                sub_specialization_id : '',
             };
         },
 
         loadRecords() {
-            axios.get('room/getrecords').then( response => {
+            axios.get('doctor_specialization/getrecords').then( response => {
                 this.dataTable = response.data.data;
-                this.buildings = response.data.buildings;
+                this.doctors = response.data.doctors;
+                this.specializations = response.data.specializations;
             });
         },
 
@@ -127,9 +142,8 @@ export default {
             $('#' + this.modalId).modal('show');
         },
 
-
         storeData() {
-            axios.post('room/store', this.dataValues)
+            axios.post('doctor_specialization/store', this.dataValues)
             .then(response => {
                 this.sweetAlert('Success', response.data.message, 'success');
                 $('#' + this.modalId).modal('hide');
@@ -143,9 +157,9 @@ export default {
         },
 
         editData(props) {
-            this.modalTitle = 'Edit Room';
+            this.modalTitle = 'Edit Sub Specialization';
             this.isEdit = true;
-            axios.get('room/edit/' + props.data.id).then( response => {
+            axios.get('doctor_specialization/edit/' + props.data.id).then( response => {
                 this.dataValues = response.data.data;
                 $('#' + this.modalId).modal('show');
             });
@@ -154,7 +168,7 @@ export default {
 
         destroyData(props) {
             this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(() => {
-                axios.get('room/destroy/' + props.data.id).then(response => {
+                axios.get('doctor_specialization/destroy/' + props.data.id).then(response => {
                     if (response.status === 200) {
                         this.sweetAlert("Success", response.data.message, "success");
                     }
@@ -164,6 +178,12 @@ export default {
                         this.sweetAlert("Failed", errors.response.data.message, "error");
                     }
                 });
+            });
+        },
+
+        getSubSpecializationBySpecialization(id) {
+            axios.get('doctor_specialization/get_sub_specialization_by_specialization/' + id).then( response => {
+                this.sub_specializations = response.data.data;
             });
         }
 

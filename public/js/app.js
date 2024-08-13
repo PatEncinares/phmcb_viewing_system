@@ -5152,6 +5152,135 @@ function mergeFn (a, b) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _partials_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./partials/FormComponent */ "./resources/js/components/partials/FormComponent.vue");
+/* harmony import */ var _partials_ModalComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partials/ModalComponent */ "./resources/js/components/partials/ModalComponent.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      errors: [],
+      dataValues: [],
+      dataTable: [],
+      columns: ['id', 'full_name', 'specialization_name', 'sub_specialization_name', 'action'],
+      options: {
+        headings: {
+          id: '#',
+          full_name: 'Doctor',
+          specialization_name: 'Specialization',
+          sub_specialization_name: 'Sub Specialization',
+          action: 'Actions'
+        },
+        filterable: false,
+        sortable: ['id']
+      },
+      doctors: [],
+      specializations: [],
+      sub_specializations: [],
+      modalId: 'modal-sub-specialization',
+      modalTitle: 'Add Sub Specialization',
+      modalSize: '',
+      fieldDisabled: true,
+      isEdit: false
+    };
+  },
+  components: {
+    FormComponent: _partials_FormComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ModalComponent: _partials_ModalComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  methods: {
+    sweetAlert: function sweetAlert(title, text, type) {
+      this.$fire({
+        title: title,
+        text: text,
+        type: type,
+        timer: 3000
+      });
+    },
+    clearForm: function clearForm() {
+      this.dataValues = {
+        doctor_detail_id: '',
+        specialization_id: '',
+        sub_specialization_id: ''
+      };
+    },
+    loadRecords: function loadRecords() {
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('doctor_specialization/getrecords').then(function (response) {
+        _this.dataTable = response.data.data;
+        _this.doctors = response.data.doctors;
+        _this.specializations = response.data.specializations;
+      });
+    },
+    createData: function createData() {
+      this.clearForm();
+      this.isEdit = false;
+      $('#' + this.modalId).modal('show');
+    },
+    storeData: function storeData() {
+      var _this2 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('doctor_specialization/store', this.dataValues).then(function (response) {
+        _this2.sweetAlert('Success', response.data.message, 'success');
+        $('#' + _this2.modalId).modal('hide');
+        _this2.loadRecords();
+      })["catch"](function (error) {
+        if (error.response && error.response.data.errors) {
+          _this2.errors = error.response.data.errors;
+        }
+      });
+    },
+    editData: function editData(props) {
+      var _this3 = this;
+      this.modalTitle = 'Edit Sub Specialization';
+      this.isEdit = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('doctor_specialization/edit/' + props.data.id).then(function (response) {
+        _this3.dataValues = response.data.data;
+        $('#' + _this3.modalId).modal('show');
+      });
+    },
+    destroyData: function destroyData(props) {
+      var _this4 = this;
+      this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get('doctor_specialization/destroy/' + props.data.id).then(function (response) {
+          if (response.status === 200) {
+            _this4.sweetAlert("Success", response.data.message, "success");
+          }
+          _this4.loadRecords();
+        })["catch"](function (errors) {
+          if (errors.response.data.message.length > 0) {
+            _this4.sweetAlert("Failed", errors.response.data.message, "error");
+          }
+        });
+      });
+    },
+    getSubSpecializationBySpecialization: function getSubSpecializationBySpecialization(id) {
+      var _this5 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('doctor_specialization/get_sub_specialization_by_specialization/' + id).then(function (response) {
+        _this5.sub_specializations = response.data.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadRecords();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js":
 /*!**********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js ***!
@@ -5255,7 +5384,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     editData: function editData(props) {
       var _this3 = this;
-      this.modalTitle = 'Edit Room';
+      this.modalTitle = 'Edit Building';
       this.isEdit = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default().get('building/edit/' + props.data.id).then(function (response) {
         _this3.dataValues = response.data.data;
@@ -5602,8 +5731,8 @@ __webpack_require__.r(__webpack_exports__);
         sortable: ['id']
       },
       buildings: [],
-      modalId: 'modal-buildings',
-      modalTitle: 'Add Building',
+      modalId: 'modal-rooms',
+      modalTitle: 'Add Room',
       modalSize: '',
       fieldDisabled: true,
       isEdit: false
@@ -5827,7 +5956,7 @@ __webpack_require__.r(__webpack_exports__);
         headings: {
           id: '#',
           specialization_name: 'Specialization',
-          name: 'Name',
+          name: 'Sub Specialization Name',
           action: 'Actions'
         },
         filterable: false,
@@ -6089,6 +6218,203 @@ __webpack_require__.r(__webpack_exports__);
     size: String
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890 ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("breadcrumb-component", {
+    attrs: {
+      parent_title: "Master Data",
+      current_title: "Doctor Specializations"
+    }
+  }), _vm._v(" "), _c("FormComponent", {
+    attrs: {
+      data: _vm.dataTable,
+      columns: _vm.columns,
+      options: _vm.options,
+      withTable: true,
+      withUserControl: true
+    },
+    on: {
+      addClicked: _vm.createData,
+      viewClicked: _vm.editData,
+      deleteClicked: _vm.destroyData
+    }
+  }), _vm._v(" "), _c("ModalComponent", {
+    attrs: {
+      id: _vm.modalId,
+      title: _vm.modalTitle,
+      size: _vm.modalSize
+    }
+  }, [_c("template", {
+    slot: "modalBody"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Doctor")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dataValues.doctor_detail_id,
+      expression: "dataValues.doctor_detail_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "",
+      id: ""
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dataValues, "doctor_detail_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      disabled: "",
+      selected: ""
+    }
+  }, [_vm._v("Select Doctor")]), _vm._v(" "), _vm._l(_vm.doctors, function (item) {
+    return _c("option", {
+      domProps: {
+        value: item.id
+      }
+    }, [_vm._v(" " + _vm._s(item.full_name))]);
+  })], 2), _vm._v(" "), _vm.errors.doctor_detail_id ? _c("div", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.doctor_detail_id[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "col-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Specialization")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dataValues.specialization_id,
+      expression: "dataValues.specialization_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "",
+      id: ""
+    },
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dataValues, "specialization_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, function ($event) {
+        return _vm.getSubSpecializationBySpecialization(_vm.dataValues.specialization_id);
+      }]
+    }
+  }, [_c("option", {
+    attrs: {
+      disabled: "",
+      selected: ""
+    }
+  }, [_vm._v("Select Specialization")]), _vm._v(" "), _vm._l(_vm.specializations, function (item) {
+    return _c("option", {
+      domProps: {
+        value: item.id
+      }
+    }, [_vm._v(" " + _vm._s(item.name))]);
+  })], 2), _vm._v(" "), _vm.errors.specialization_id ? _c("div", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.specialization_id[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
+    staticClass: "col-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Sub Specialization")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.dataValues.sub_specialization_id,
+      expression: "dataValues.sub_specialization_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      name: "",
+      id: ""
+    },
+    on: {
+      change: function change($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.dataValues, "sub_specialization_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }
+    }
+  }, [_c("option", {
+    attrs: {
+      disabled: "",
+      selected: ""
+    }
+  }, [_vm._v("Select Sub Specialization")]), _vm._v(" "), _vm._l(_vm.sub_specializations, function (item) {
+    return _c("option", {
+      domProps: {
+        value: item.id
+      }
+    }, [_vm._v(" " + _vm._s(item.name))]);
+  })], 2), _vm._v(" "), _vm.errors.sub_specialization_id ? _c("div", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.sub_specialization_id[0]))]) : _vm._e()])])]), _vm._v(" "), _c("template", {
+    slot: "modalFooter"
+  }, [_c("div", {
+    staticClass: "text-right"
+  }, [_c("button", {
+    staticClass: "btn btn-primary",
+    on: {
+      click: _vm.storeData
+    }
+  }, [_vm._v("Save Data")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark",
+    attrs: {
+      "data-bs-dismiss": "modal"
+    }
+  }, [_vm._v("Close")])])])], 2), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "appendTable"
+    }
+  })], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
 
 /***/ }),
 
@@ -6931,9 +7257,9 @@ var render = function render() {
         value: item.id
       }
     }, [_vm._v(" " + _vm._s(item.name))]);
-  })], 2), _vm._v(" "), _vm.errors.doctor_detail_id ? _c("div", {
+  })], 2), _vm._v(" "), _vm.errors.specialization_id ? _c("div", {
     staticClass: "text-danger"
-  }, [_vm._v(_vm._s(_vm.errors.doctor_detail_id[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
+  }, [_vm._v(_vm._s(_vm.errors.specialization_id[0]))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "col-12"
   }, [_c("label", {
     attrs: {
@@ -7240,12 +7566,13 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vue_simple_alert__WEBPACK_IMPORT
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('example-component', (__webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('home-component', (__webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]));
 
 // PARTIALS
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('breadcrumb-component', (__webpack_require__(/*! ./components/partials/BreadCrumbComponent.vue */ "./resources/js/components/partials/BreadCrumbComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('form-component', (__webpack_require__(/*! ./components/partials/FormComponent.vue */ "./resources/js/components/partials/FormComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('modal-component', (__webpack_require__(/*! ./components/partials/ModalComponent.vue */ "./resources/js/components/partials/ModalComponent.vue")["default"]));
+// END OF PARTIALS
 
 //MASTER DATA
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('doctor-details-component', (__webpack_require__(/*! ./components/masterData/DoctorDetailsComponent.vue */ "./resources/js/components/masterData/DoctorDetailsComponent.vue")["default"]));
@@ -7254,6 +7581,11 @@ vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('sub-specialization-compon
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('hmo-component', (__webpack_require__(/*! ./components/masterData/HmoComponent.vue */ "./resources/js/components/masterData/HmoComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('building-component', (__webpack_require__(/*! ./components/masterData/BuildingComponent.vue */ "./resources/js/components/masterData/BuildingComponent.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('rooms-component', (__webpack_require__(/*! ./components/masterData/RoomsComponent.vue */ "./resources/js/components/masterData/RoomsComponent.vue")["default"]));
+// END OF MASTER DATA
+
+//DOCTOR SPECIALIZATION
+vue__WEBPACK_IMPORTED_MODULE_2__["default"].component('doctor-specialization-component', (__webpack_require__(/*! ./components/DoctorSpecializationComponent.vue */ "./resources/js/components/DoctorSpecializationComponent.vue")["default"]));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -34543,6 +34875,45 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 
 /***/ }),
 
+/***/ "./resources/js/components/DoctorSpecializationComponent.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/DoctorSpecializationComponent.vue ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DoctorSpecializationComponent_vue_vue_type_template_id_fcfaa890__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890 */ "./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890");
+/* harmony import */ var _DoctorSpecializationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DoctorSpecializationComponent.vue?vue&type=script&lang=js */ "./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DoctorSpecializationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DoctorSpecializationComponent_vue_vue_type_template_id_fcfaa890__WEBPACK_IMPORTED_MODULE_0__.render,
+  _DoctorSpecializationComponent_vue_vue_type_template_id_fcfaa890__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DoctorSpecializationComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue ***!
@@ -34937,6 +35308,22 @@ component.options.__file = "resources/js/components/partials/ModalComponent.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorSpecializationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DoctorSpecializationComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorSpecializationComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js":
 /*!******************************************************************************!*\
   !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js ***!
@@ -35094,6 +35481,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ModalComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/partials/ModalComponent.vue?vue&type=script&lang=js");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890 ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorSpecializationComponent_vue_vue_type_template_id_fcfaa890__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorSpecializationComponent_vue_vue_type_template_id_fcfaa890__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorSpecializationComponent_vue_vue_type_template_id_fcfaa890__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890");
+
 
 /***/ }),
 
