@@ -128,7 +128,7 @@ export default {
         },
 
         editData(props) {
-            this.modalTitle = 'Edit Room';
+            this.modalTitle = 'Edit Building';
             this.isEdit = true;
             axios.get('building/edit/' + props.data.id).then( response => {
                 this.dataValues = response.data.data;

@@ -33,7 +33,7 @@ style scoped>
                                 <option disabled selected>Select Specialization</option>
                                 <option v-for="item in specializations" :value="item.id"> {{ item.name }}</option>
                             </select>
-                                <div class="text-danger" v-if="errors.doctor_detail_id">{{ errors.doctor_detail_id[0] }}</div>
+                                <div class="text-danger" v-if="errors.specialization_id">{{ errors.specialization_id[0] }}</div>
                     </div>
 
                     <div class="col-12">
@@ -71,7 +71,7 @@ export default {
                 headings : {
                     id : '#',
                     specialization_name : 'Specialization',
-                    name : 'Name',
+                    name : 'Sub Specialization Name',
                     action : 'Actions',
                 },
 
