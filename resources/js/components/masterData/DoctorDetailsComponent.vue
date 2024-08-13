@@ -62,6 +62,17 @@ style scoped>
                                 <div class="text-danger" v-if="errors.secretary_contact_number">{{ errors.secretary_contact_number[0] }}</div>
                     </div>
 
+                    <div class="col-12">
+                        <label for="">Schedule</label>
+                        <textarea class="form-control" name="" id="" placeholder="Write your schedule here.." v-model="dataValues.schedule"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="">remarks</label>
+                        <textarea class="form-control" name="" id="" placeholder="Write your remarks here.." v-model="dataValues.remarks"></textarea>
+                    </div>
+
+
                     <!-- <div class="col-12">
                         <label for="profile_image">Profile Image</label>
                         <input type="file" class="form-control" @change="handleFileUpload">
@@ -93,13 +104,15 @@ export default {
 
             ],   
             dataTable : [],
-            columns : ['id', 'full_name', 'secretary_contact_number', 'status', 'action'],
+            columns : ['id', 'full_name', 'secretary_contact_number', 'status', 'schedule', 'remarks', 'action'],
             options : {
                 headings : {
                     id : '#',
                     full_name : 'Name',
                     secretary_contact_number : 'Secretary Contact #',
                     status : 'Status',
+                    schedule : 'Schedule',
+                    remarks : 'Remarks',
                     action : 'Actions',
                 },
 
@@ -142,6 +155,8 @@ export default {
                 middle_name: '',
                 secretary_contact_number: '',
                 status: '',
+                schedule : '',
+                remarks : '',
                 // profile_image: ''
             };
             this.doctor_id = null;
@@ -190,6 +205,8 @@ export default {
             formData.append('middle_name', this.dataValues.middle_name);
             formData.append('secretary_contact_number', this.dataValues.secretary_contact_number);
             formData.append('status', this.dataValues.status);
+            formData.append('schedule', this.dataValues.schedule);
+            formData.append('remarks', this.dataValues.remarks);
             // formData.append('image_file', this.image_file);
             // formData.append('image_file_name', this.image_file_name);
             // formData.append('file_type', this.file_type);

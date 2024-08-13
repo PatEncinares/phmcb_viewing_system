@@ -320,11 +320,6 @@ return [
                     'icon' => 'fa fa-minus',
                 ],
                 [
-                    'text' => 'Rooms',
-                    'url' => 'room',
-                    'icon' => 'fa fa-minus',
-                ],
-                [
                     'text' => 'Specializations',
                     'url' => 'specialization',
                     'icon' => 'fa fa-minus',
@@ -339,6 +334,18 @@ return [
                     'url' => 'hmo',
                     'icon' => 'fa fa-minus',
                 ],
+
+                [
+                    'text' => 'Buildings',
+                    'url' => 'building',
+                    'icon' => 'fa fa-minus',
+                ],
+                [
+                    'text' => 'Rooms',
+                    'url' => 'room',
+                    'icon' => 'fa fa-minus',
+                ],
+                
             ]
         ],
       

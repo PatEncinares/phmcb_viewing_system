@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Building;
 use Illuminate\Http\Request;
-use App\Models\DoctorDetails;
-use App\Models\Specialization;
-use Illuminate\Support\Facades\DB;
 
-class SpecializationController extends Controller
+class BuildingController extends Controller
 {
     public function index() {
-        return view('master_data.specialization');
+        return view('master_data.building');
     }   
  
     public function get_records() {
         return response()->json([
-            'data' => Specialization::get(),
+            'data' => Building::get(),
         ]);
     }
 
@@ -24,9 +22,9 @@ class SpecializationController extends Controller
             'name' => 'required|max:255',
           
         ],[
-            'name.required' => 'Specialization required',
+            'name.required' => 'Name is required',
         ]);
-        $data = isset($request->id) ? Specialization::where('id', $request->id)->first() : new Specialization();
+        $data = isset($request->id) ? Building::where('id', $request->id)->first() : new Building();
         $data->name = $request->name;
         $data->save();
 
@@ -36,12 +34,12 @@ class SpecializationController extends Controller
 
     public function edit($id) {
         return response()->json([
-            'data' => Specialization::where('id', $id)->first(),
+            'data' => Building::where('id', $id)->first(),
         ]);
     }
 
     public function destroy($id) {
-        $data = Specialization::where('id', $id)->first();
+        $data = Building::where('id', $id)->first();
 
         if(!$data) {
             return response()->json([

@@ -28,16 +28,7 @@ style scoped>
             <template slot="modalBody">
                 <div class="row">
                     <div class="col-12">
-                        <label for="">Doctor</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.doctor_detail_id">
-                                <option disabled selected>Select Doctor</option>
-                                <option v-for="item in doctors" :value="item.id"> {{ item.full_name }}</option>
-                            </select>
-                                <div class="text-danger" v-if="errors.doctor_detail_id">{{ errors.doctor_detail_id[0] }}</div>
-                    </div>
-
-                    <div class="col-12">
-                        <label for="">Specialization</label>
+                        <label for="">Name</label>
                         <input type="text" class="form-control" v-model="dataValues.name">
                                 <div class="text-danger" v-if="errors.name">{{ errors.name[0] }}</div>
                     </div>
@@ -66,19 +57,17 @@ export default {
 
             ],   
             dataTable : [],
-            columns : ['id', 'full_name', 'name', 'action'],
+            columns : ['id', 'name', 'action'],
             options : {
                 headings : {
                     id : '#',
-                    full_name : 'Doctor',
-                    name : 'Specialization Name',
+                    name : 'Name',
                     action : 'Actions',
                 },
 
                 filterable: false,
                 sortable: ['id'],
             },
-            doctors : [],
             modalId: 'modal-specialization',
             modalTitle: 'Add Specialization',
             modalSize: '',
@@ -106,7 +95,6 @@ export default {
 
         clearForm() {
             this.dataValues = {
-                doctor_detail_id : '',
                 name : '',
             };
         },
@@ -114,7 +102,6 @@ export default {
         loadRecords() {
             axios.get('specialization/getrecords').then( response => {
                 this.dataTable = response.data.data;
-                this.doctors = response.data.doctors;
             });
         },
 

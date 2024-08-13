@@ -15,7 +15,6 @@ class CreateHmosTable extends Migration
     {
         Schema::create('hmos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_detail_id')->constrained('doctor_details')->onUpdate('cascade')->onDelete('restrict');
             $table->string('name');
             $table->timestamps();
         });
