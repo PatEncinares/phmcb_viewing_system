@@ -330,7 +330,7 @@ return [
                     'icon' => 'fa fa-minus',
                 ],
                 [
-                    'text' => 'HMO',
+                    'text' => 'Health Maintenance Organization',
                     'url' => 'hmo',
                     'icon' => 'fa fa-minus',
                 ],
@@ -352,6 +352,11 @@ return [
             'text' => 'Doctor Specialization',
             'url' => 'doctor_specialization',
             'icon' => 'fa fa-user-md',
+        ],
+        [
+            'text' => 'Doctor HMOs',
+            'url' => 'doctor_hmo',
+            'icon' => 'fa fa-h-square',
         ],
       
 

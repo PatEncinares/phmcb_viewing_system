@@ -5152,6 +5152,126 @@ function mergeFn (a, b) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorHMOComponent.vue?vue&type=script&lang=js":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorHMOComponent.vue?vue&type=script&lang=js ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _partials_FormComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./partials/FormComponent */ "./resources/js/components/partials/FormComponent.vue");
+/* harmony import */ var _partials_ModalComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./partials/ModalComponent */ "./resources/js/components/partials/ModalComponent.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      errors: [],
+      dataValues: [],
+      dataTable: [],
+      columns: ['full_name', 'hmos', 'action'],
+      options: {
+        headings: {
+          full_name: 'Doctor',
+          hmos: 'HMOs',
+          action: 'Actions'
+        },
+        filterable: false,
+        sortable: ['id']
+      },
+      doctors: [],
+      master_data_hmos: [],
+      modalId: 'modal-hmo',
+      modalTitle: 'Add Doctor HMO',
+      modalSize: '',
+      fieldDisabled: true,
+      isEdit: false
+    };
+  },
+  components: {
+    FormComponent: _partials_FormComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    ModalComponent: _partials_ModalComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  methods: {
+    sweetAlert: function sweetAlert(title, text, type) {
+      this.$fire({
+        title: title,
+        text: text,
+        type: type,
+        timer: 3000
+      });
+    },
+    clearForm: function clearForm() {
+      this.dataValues = {
+        doctor_detail_id: '',
+        selectedHmos: []
+      };
+    },
+    loadRecords: function loadRecords() {
+      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('doctor_hmo/getrecords').then(function (response) {
+        _this.dataTable = response.data.data;
+        _this.doctors = response.data.doctors;
+        _this.master_data_hmos = response.data.master_data_hmos;
+      });
+    },
+    createData: function createData() {
+      this.clearForm();
+      this.isEdit = false;
+      $('#' + this.modalId).modal('show');
+    },
+    storeData: function storeData() {
+      var _this2 = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('doctor_hmo/store', this.dataValues).then(function (response) {
+        _this2.sweetAlert('Success', response.data.message, 'success');
+        $('#' + _this2.modalId).modal('hide');
+        _this2.loadRecords();
+      })["catch"](function (error) {
+        if (error.response && error.response.data.errors) {
+          _this2.errors = error.response.data.errors;
+        }
+      });
+    },
+    editData: function editData(props) {
+      var _this3 = this;
+      this.modalTitle = 'Edit Doctor HMO';
+      this.isEdit = true;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get('doctor_hmo/edit/' + props.data.doctor_detail_id).then(function (response) {
+        _this3.dataValues = response.data.data;
+        _this3.dataValues.selectedHmos = response.data.data.hmos;
+        $('#' + _this3.modalId).modal('show');
+      });
+    },
+    destroyData: function destroyData(props) {
+      var _this4 = this;
+      this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(function () {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get('doctor_hmo/destroy/' + props.data.doctor_detail_id).then(function (response) {
+          if (response.status === 200) {
+            _this4.sweetAlert("Success", response.data.message, "success");
+          }
+          _this4.loadRecords();
+        })["catch"](function (errors) {
+          if (errors.response.data.message.length > 0) {
+            _this4.sweetAlert("Failed", errors.response.data.message, "error");
+          }
+        });
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadRecords();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js ***!
@@ -6232,6 +6352,143 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorHMOComponent.vue?vue&type=template&id=3e27777d":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorHMOComponent.vue?vue&type=template&id=3e27777d ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("breadcrumb-component", {
+    attrs: {
+      current_title: "Doctor Health Maintenance Organization"
+    }
+  }), _vm._v(" "), _c("FormComponent", {
+    attrs: {
+      data: _vm.dataTable,
+      columns: _vm.columns,
+      options: _vm.options,
+      withTable: true,
+      withUserControl: true
+    },
+    on: {
+      addClicked: _vm.createData,
+      viewClicked: _vm.editData,
+      deleteClicked: _vm.destroyData
+    }
+  }), _vm._v(" "), _c("ModalComponent", {
+    attrs: {
+      id: _vm.modalId,
+      title: _vm.modalTitle,
+      size: _vm.modalSize
+    }
+  }, [_c("template", {
+    slot: "modalBody"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("Doctor")]), _vm._v(" "), _c("v-select", {
+    attrs: {
+      options: _vm.doctors,
+      reduce: function reduce(item) {
+        return item.id;
+      },
+      label: "full_name",
+      placeholder: "Select Doctor"
+    },
+    model: {
+      value: _vm.dataValues.doctor_detail_id,
+      callback: function callback($$v) {
+        _vm.$set(_vm.dataValues, "doctor_detail_id", $$v);
+      },
+      expression: "dataValues.doctor_detail_id"
+    }
+  }), _vm._v(" "), _vm.errors.doctor_detail_id ? _c("div", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.doctor_detail_id[0]))]) : _vm._e()], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-12"
+  }, [_c("label", {
+    attrs: {
+      "for": ""
+    }
+  }, [_vm._v("HMO's")]), _vm._v(" "), _vm._l(_vm.master_data_hmos, function (item) {
+    return _c("div", {
+      key: item.id,
+      staticClass: "form-control"
+    }, [_c("label", [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.dataValues.selectedHmos,
+        expression: "dataValues.selectedHmos"
+      }],
+      attrs: {
+        type: "checkbox"
+      },
+      domProps: {
+        value: item.id,
+        checked: Array.isArray(_vm.dataValues.selectedHmos) ? _vm._i(_vm.dataValues.selectedHmos, item.id) > -1 : _vm.dataValues.selectedHmos
+      },
+      on: {
+        change: function change($event) {
+          var $$a = _vm.dataValues.selectedHmos,
+            $$el = $event.target,
+            $$c = $$el.checked ? true : false;
+          if (Array.isArray($$a)) {
+            var $$v = item.id,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && _vm.$set(_vm.dataValues, "selectedHmos", $$a.concat([$$v]));
+            } else {
+              $$i > -1 && _vm.$set(_vm.dataValues, "selectedHmos", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.$set(_vm.dataValues, "selectedHmos", $$c);
+          }
+        }
+      }
+    }), _vm._v("\n                            " + _vm._s(item.name) + "\n                            ")])]);
+  }), _vm._v(" "), _vm.errors.selectedHmos ? _c("div", {
+    staticClass: "text-danger"
+  }, [_vm._v(_vm._s(_vm.errors.selectedHmos[0]))]) : _vm._e()], 2)])]), _vm._v(" "), _c("template", {
+    slot: "modalFooter"
+  }, [_c("div", {
+    staticClass: "text-right"
+  }, [_c("button", {
+    staticClass: "btn btn-primary",
+    on: {
+      click: _vm.storeData
+    }
+  }, [_vm._v("Save Data")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-dark",
+    attrs: {
+      "data-bs-dismiss": "modal"
+    }
+  }, [_vm._v("Close")])])])], 2), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "appendTable"
+    }
+  })], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorSpecializationComponent.vue?vue&type=template&id=fcfaa890 ***!
@@ -6249,7 +6506,6 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", [_c("breadcrumb-component", {
     attrs: {
-      parent_title: "Master Data",
       current_title: "Doctor Specializations"
     }
   }), _vm._v(" "), _c("FormComponent", {
@@ -7551,6 +7807,7 @@ vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('rooms-component', (__webp
 
 //DOCTOR SPECIALIZATION
 vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('doctor-specialization-component', (__webpack_require__(/*! ./components/DoctorSpecializationComponent.vue */ "./resources/js/components/DoctorSpecializationComponent.vue")["default"]));
+vue__WEBPACK_IMPORTED_MODULE_4__["default"].component('doctor-hmo-component', (__webpack_require__(/*! ./components/DoctorHMOComponent.vue */ "./resources/js/components/DoctorHMOComponent.vue")["default"]));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -34895,6 +35152,45 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 
 /***/ }),
 
+/***/ "./resources/js/components/DoctorHMOComponent.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/DoctorHMOComponent.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DoctorHMOComponent_vue_vue_type_template_id_3e27777d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DoctorHMOComponent.vue?vue&type=template&id=3e27777d */ "./resources/js/components/DoctorHMOComponent.vue?vue&type=template&id=3e27777d");
+/* harmony import */ var _DoctorHMOComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DoctorHMOComponent.vue?vue&type=script&lang=js */ "./resources/js/components/DoctorHMOComponent.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DoctorHMOComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DoctorHMOComponent_vue_vue_type_template_id_3e27777d__WEBPACK_IMPORTED_MODULE_0__.render,
+  _DoctorHMOComponent_vue_vue_type_template_id_3e27777d__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DoctorHMOComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/DoctorSpecializationComponent.vue":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/DoctorSpecializationComponent.vue ***!
@@ -35328,6 +35624,22 @@ component.options.__file = "resources/js/components/partials/ModalComponent.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/DoctorHMOComponent.vue?vue&type=script&lang=js":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/DoctorHMOComponent.vue?vue&type=script&lang=js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorHMOComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DoctorHMOComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorHMOComponent.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorHMOComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************!*\
   !*** ./resources/js/components/DoctorSpecializationComponent.vue?vue&type=script&lang=js ***!
@@ -35501,6 +35813,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ModalComponent.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/partials/ModalComponent.vue?vue&type=script&lang=js");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ModalComponent_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DoctorHMOComponent.vue?vue&type=template&id=3e27777d":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/DoctorHMOComponent.vue?vue&type=template&id=3e27777d ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorHMOComponent_vue_vue_type_template_id_3e27777d__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorHMOComponent_vue_vue_type_template_id_3e27777d__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DoctorHMOComponent_vue_vue_type_template_id_3e27777d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DoctorHMOComponent.vue?vue&type=template&id=3e27777d */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/DoctorHMOComponent.vue?vue&type=template&id=3e27777d");
+
 
 /***/ }),
 

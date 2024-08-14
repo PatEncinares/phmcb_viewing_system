@@ -54,6 +54,7 @@ Vue.component('rooms-component', require('./components/masterData/RoomsComponent
 
 //DOCTOR SPECIALIZATION
 Vue.component('doctor-specialization-component', require('./components/DoctorSpecializationComponent.vue').default);
+Vue.component('doctor-hmo-component', require('./components/DoctorHMOComponent.vue').default);
 
 
 
