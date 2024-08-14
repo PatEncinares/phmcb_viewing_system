@@ -23,13 +23,13 @@ use App\Models\DoctorSpecialization;
 |
 */
 Auth::routes();
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('login');
+});
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', function () {
-        return view('/login');
+        return view('/home');
     });
     // MASTER DATA
 
@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('doctordetails/getrecords', [DoctorDetailsController::class, 'get_records']);
     Route::post('doctordetails/store', [DoctorDetailsController::class, 'store']);
     Route::get('doctordetails/edit/{id}', [DoctorDetailsController::class, 'edit']);
-    Route::get('doctordetails/destroy{id}', [DoctorDetailsController::class, 'destroy']);
+    Route::get('doctordetails/destroy/{id}', [DoctorDetailsController::class, 'destroy']);
 
     // MASTER DATA SPECIALIZATION
     Route::get('specialization', [SpecializationController::class, 'index']);

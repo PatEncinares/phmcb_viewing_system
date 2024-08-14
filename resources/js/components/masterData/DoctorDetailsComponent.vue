@@ -59,7 +59,7 @@ style scoped>
                                 <option value="Inactive">Inactive</option>
                                 <option value="On-Leave">On-Leave</option>
                             </select>
-                                <div class="text-danger" v-if="errors.secretary_contact_number">{{ errors.secretary_contact_number[0] }}</div>
+                                <div class="text-danger" v-if="errors.status">{{ errors.status[0] }}</div>
                     </div>
 
                     <div class="col-12">
@@ -217,15 +217,25 @@ export default {
 
 
             axios.post('doctordetails/store', formData, headerConfig)
-            .then(response => {
-                this.sweetAlert('Success', response.data.message, 'success');
-                $('#' + this.modalId).modal('hide');
-                this.loadRecords();
-            })
-            .catch(error => {
-                if (error.response && error.response.data.errors) {
-                    this.errors = error.response.data.errors;
-                }
+                .then(response => {
+                    this.sweetAlert('Success', response.data.message, 'success');
+                    $('#' + this.modalId).modal('hide');
+                    this.loadRecords();
+                })
+                .catch(error => {
+                    if (error.response) {
+                        if (error.response.status === 422) {
+                            // If the error is related to validation
+                            if (error.response.data.errors) {
+                                this.errors = error.response.data.errors;
+                            } else if (error.response.data.message) {
+                                // If it's the custom message from the server when doctor already exists
+                                this.sweetAlert('Error', error.response.data.message, 'error');
+                            }
+                        } else {
+                            this.sweetAlert('Error', 'An unexpected error occurred.', 'error');
+                        }
+                    }
             });
         },
 

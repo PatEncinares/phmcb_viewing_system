@@ -24,8 +24,8 @@ class DoctorDetailsController extends Controller
         $request->validate([
             'last_name' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
-            // 'middle_name' => 'required|string|max:255',
-            // 'secretary_contact_number' => 'required|numeric',
+            'middle_name' => 'required|string|max:255',
+            'secretary_contact_number' => 'required|numeric|digits:11',
             'status' => 'required|string',
             // 'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ],[
@@ -35,6 +35,16 @@ class DoctorDetailsController extends Controller
             // 'secretary_contact_number.required' => 'Secretary Contact Number is required',
             'status.required' => 'Status is required',
         ]);
+
+        $exists = DoctorDetails::where('first_name', $request->first_name)
+        ->where('middle_name', $request->middle_name)
+        ->where('last_name', $request->last_name)
+        ->exists();
+
+        if ($exists) {
+            return response()->json(['message' => 'A doctor with this full name already exists.'], 422);
+        }
+        
         $data = isset($request->id) ? DoctorDetails::where('id', $request->id)->first() : new DoctorDetails();
         $data->last_name = $request->last_name;
         $data->first_name = $request->first_name;
