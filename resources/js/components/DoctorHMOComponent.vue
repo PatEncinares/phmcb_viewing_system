@@ -5,7 +5,7 @@ style scoped>
 </style>
 <template>
     <div>
-        <breadcrumb-component current_title="Doctor Specializations"></breadcrumb-component>
+        <breadcrumb-component current_title="Doctor Health Maintenance Organization"></breadcrumb-component>
 
         <FormComponent 
             :data="dataTable" 
@@ -39,29 +39,18 @@ style scoped>
                                 <div class="text-danger" v-if="errors.doctor_detail_id">{{ errors.doctor_detail_id[0] }}</div>
                     </div>
 
-                    <div class="col-12">
-                        <label for="">Specialization</label>
-                        <v-select 
-                                :options="specializations" 
-                                :reduce="item => item.id" 
-                                label="name" 
-                                v-model="dataValues.specialization_id"
-                                placeholder="Select Specialization"
-                                @input="getSubSpecializationBySpecialization($event)"
-                            ></v-select>
-                                <div class="text-danger" v-if="errors.specialization_id">{{ errors.specialization_id[0] }}</div>
-                    </div>
 
                     <div class="col-12">
-                        <label for="">Sub Specialization</label>
-                        <v-select 
-                            :options="sub_specializations" 
-                            :reduce="item => item.id" 
-                            label="name" 
-                            v-model="dataValues.sub_specialization_id"
-                            placeholder="Select Sub Specialization"
-                        ></v-select>
-                                <div class="text-danger" v-if="errors.sub_specialization_id">{{ errors.sub_specialization_id[0] }}</div>
+                        <label for="">HMO's</label>
+                            <div class="form-control" v-for="item in master_data_hmos" :key="item.id">
+                                <label>
+                                <input type="checkbox" 
+                                :value="item.id" 
+                                v-model="dataValues.selectedHmos">
+                                {{ item.name }}
+                                </label>
+                            </div>
+                                <div class="text-danger" v-if="errors.selectedHmos">{{ errors.selectedHmos[0] }}</div>
                     </div>
                 </div>
             </template>
@@ -88,13 +77,11 @@ export default {
 
             ],   
             dataTable : [],
-            columns : ['id', 'full_name',  'specialization_name', 'sub_specialization_name', 'action'],
+            columns : ['full_name',  'hmos', 'action'],
             options : {
                 headings : {
-                    id : '#',
                     full_name : 'Doctor',
-                    specialization_name : 'Specialization',
-                    sub_specialization_name : 'Sub Specialization',
+                    hmos : 'HMOs',
                     action : 'Actions',
                 },
 
@@ -102,10 +89,9 @@ export default {
                 sortable: ['id'],
             },
             doctors : [],
-            specializations : [],
-            sub_specializations : [],
-            modalId: 'modal-sub-specialization',
-            modalTitle: 'Add Sub Specialization',
+            master_data_hmos : [],
+            modalId: 'modal-hmo',
+            modalTitle: 'Add Doctor HMO',
             modalSize: '',
             fieldDisabled: true,
             isEdit: false,
@@ -132,16 +118,15 @@ export default {
         clearForm() {
             this.dataValues = {
                 doctor_detail_id : '',
-                specialization_id : '',
-                sub_specialization_id : '',
+                selectedHmos : [],
             };
         },
 
         loadRecords() {
-            axios.get('doctor_specialization/getrecords').then( response => {
+            axios.get('doctor_hmo/getrecords').then( response => {
                 this.dataTable = response.data.data;
                 this.doctors = response.data.doctors;
-                this.specializations = response.data.specializations;
+                this.master_data_hmos = response.data.master_data_hmos;
             });
         },
 
@@ -153,7 +138,7 @@ export default {
         },
 
         storeData() {
-            axios.post('doctor_specialization/store', this.dataValues)
+            axios.post('doctor_hmo/store', this.dataValues)
             .then(response => {
                 this.sweetAlert('Success', response.data.message, 'success');
                 $('#' + this.modalId).modal('hide');
@@ -167,10 +152,11 @@ export default {
         },
 
         editData(props) {
-            this.modalTitle = 'Edit Sub Specialization';
+            this.modalTitle = 'Edit Doctor HMO';
             this.isEdit = true;
-            axios.get('doctor_specialization/edit/' + props.data.id).then( response => {
+            axios.get('doctor_hmo/edit/' + props.data.doctor_detail_id).then( response => {
                 this.dataValues = response.data.data;
+                this.dataValues.selectedHmos = response.data.data.hmos;
                 $('#' + this.modalId).modal('show');
             });
         },
@@ -178,7 +164,7 @@ export default {
 
         destroyData(props) {
             this.$confirm("Are you sure you want to delete this data?", 'Delete?', 'question').then(() => {
-                axios.get('doctor_specialization/destroy/' + props.data.id).then(response => {
+                axios.get('doctor_hmo/destroy/' + props.data.doctor_detail_id).then(response => {
                     if (response.status === 200) {
                         this.sweetAlert("Success", response.data.message, "success");
                     }
@@ -190,16 +176,6 @@ export default {
                 });
             });
         },
-
-        getSubSpecializationBySpecialization(id) {
-            axios.get('doctor_specialization/get_sub_specialization_by_specialization/' + id).then( response => {
-                this.sub_specializations = response.data.data;
-            });
-        }
-
-
-
-
 
     },
 

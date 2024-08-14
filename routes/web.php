@@ -5,11 +5,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\DoctorDetailsController;
+use App\Http\Controllers\DoctorHmoController;
 use App\Http\Controllers\DoctorSpecializationController;
 use App\Http\Controllers\HmoController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\SubSpecializationController;
 use App\Models\Building;
+use App\Models\DoctorHmo;
 use App\Models\DoctorSpecialization;
 
 /*
@@ -87,5 +89,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('doctor_specialization/destroy/{id}', [DoctorSpecializationController::class, 'destroy']);
     Route::get('doctor_specialization/get_sub_specialization_by_specialization/{id}', [DoctorSpecializationController::class, 'get_sub_specialization_by_specialization']);
 
+    Route::get('doctor_hmo', [DoctorHmoController::class, 'index']);
+    Route::get('doctor_hmo/getrecords', [DoctorHmoController::class, 'get_records']);
+    Route::post('doctor_hmo/store', [DoctorHmoController::class, 'store']);
+    Route::get('doctor_hmo/edit/{id}', [DoctorHmoController::class, 'edit']);
+    Route::get('doctor_hmo/destroy/{id}', [DoctorHmoController::class, 'destroy']);
 });
 

@@ -1,0 +1,19 @@
+@extends('adminlte::page')
+
+
+@section('content')
+
+    <div id="app">
+        <doctor-hmo-component></doctor-hmo-component>
+    </div>
+
+
+@stop
+
+
+@section('js')
+
+    <script src="{{ asset('js/app.js') }}"></script>
+  
+@stop
+
