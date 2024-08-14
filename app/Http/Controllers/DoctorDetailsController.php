@@ -24,15 +24,15 @@ class DoctorDetailsController extends Controller
         $request->validate([
             'last_name' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
-            'middle_name' => 'required|string|max:255',
-            'secretary_contact_number' => 'required|numeric',
+            // 'middle_name' => 'required|string|max:255',
+            // 'secretary_contact_number' => 'required|numeric',
             'status' => 'required|string',
             // 'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ],[
             'last_name.required' => 'Last name is required',
             'first_name.required' => 'First name  is required',
-            'middle_name.required' => 'Middle name is required',
-            'secretary_contact_number.required' => 'Secretary Contact Number is required',
+            // 'middle_name.required' => 'Middle name is required',
+            // 'secretary_contact_number.required' => 'Secretary Contact Number is required',
             'status.required' => 'Status is required',
         ]);
         $data = isset($request->id) ? DoctorDetails::where('id', $request->id)->first() : new DoctorDetails();
