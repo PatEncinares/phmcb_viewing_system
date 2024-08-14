@@ -54,7 +54,7 @@ class DoctorSpecializationController extends Controller
 
     public function edit($id) {
         return response()->json([
-            'data' => DoctorSpecialization::first(),
+            'data' => DoctorSpecialization::where('id', $id)->first(),
         ]);
     }
 

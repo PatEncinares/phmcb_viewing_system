@@ -29,28 +29,38 @@ style scoped>
                 <div class="row">
                     <div class="col-12">
                         <label for="">Doctor</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.doctor_detail_id">
-                                <option disabled selected>Select Doctor</option>
-                                <option v-for="item in doctors" :value="item.id"> {{ item.full_name }}</option>
-                            </select>
+                            <v-select 
+                                :options="doctors" 
+                                :reduce="item => item.id" 
+                                label="full_name" 
+                                v-model="dataValues.doctor_detail_id"
+                                placeholder="Select Doctor"
+                            ></v-select>
                                 <div class="text-danger" v-if="errors.doctor_detail_id">{{ errors.doctor_detail_id[0] }}</div>
                     </div>
 
                     <div class="col-12">
                         <label for="">Specialization</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.specialization_id" v-on:change="getSubSpecializationBySpecialization(dataValues.specialization_id)">
-                                <option disabled selected>Select Specialization</option>
-                                <option v-for="item in specializations" :value="item.id"> {{ item.name }}</option>
-                            </select>
+                        <v-select 
+                                :options="specializations" 
+                                :reduce="item => item.id" 
+                                label="name" 
+                                v-model="dataValues.specialization_id"
+                                placeholder="Select Specialization"
+                                @input="getSubSpecializationBySpecialization($event)"
+                            ></v-select>
                                 <div class="text-danger" v-if="errors.specialization_id">{{ errors.specialization_id[0] }}</div>
                     </div>
 
                     <div class="col-12">
                         <label for="">Sub Specialization</label>
-                            <select class="form-control" name="" id="" v-model="dataValues.sub_specialization_id">
-                                <option disabled selected>Select Sub Specialization</option>
-                                <option v-for="item in sub_specializations" :value="item.id"> {{ item.name }}</option>
-                            </select>
+                        <v-select 
+                            :options="sub_specializations" 
+                            :reduce="item => item.id" 
+                            label="name" 
+                            v-model="dataValues.sub_specialization_id"
+                            placeholder="Select Sub Specialization"
+                        ></v-select>
                                 <div class="text-danger" v-if="errors.sub_specialization_id">{{ errors.sub_specialization_id[0] }}</div>
                     </div>
                 </div>
