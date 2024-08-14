@@ -85,7 +85,7 @@ class DoctorDetailsController extends Controller
 
     public function edit($id) {
         return response()->json([
-            'data' => DoctorDetails::first(),
+            'data' => DoctorDetails::where('id', $id)->first(),
         ]);
     }
 

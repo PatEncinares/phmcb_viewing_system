@@ -240,6 +240,7 @@ export default {
         },
 
         editData(props) {
+            console.log(props);
             this.modalTitle = 'Edit Doctor';
             this.isEdit = true;
             axios.get('doctordetails/edit/' + props.data.id).then( response => {
