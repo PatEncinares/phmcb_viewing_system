@@ -25,13 +25,13 @@ class DoctorDetailsController extends Controller
             'last_name' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'middle_name' => 'required|string|max:255',
-            'secretary_contact_number' => 'required|numeric|digits:11',
+            // 'secretary_contact_number' => 'required|numeric|digits:11',
             'status' => 'required|string',
             // 'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ],[
             'last_name.required' => 'Last name is required',
             'first_name.required' => 'First name  is required',
-            // 'middle_name.required' => 'Middle name is required',
+            'middle_name.required' => 'Middle name is required',
             // 'secretary_contact_number.required' => 'Secretary Contact Number is required',
             'status.required' => 'Status is required',
         ]);
@@ -40,10 +40,12 @@ class DoctorDetailsController extends Controller
         ->where('middle_name', $request->middle_name)
         ->where('last_name', $request->last_name)
         ->exists();
-
-        if ($exists) {
-            return response()->json(['message' => 'A doctor with this full name already exists.'], 422);
+        if($request->is_edit == false) {
+            if ($exists) {
+                return response()->json(['message' => 'A doctor with this full name already exists.'], 422);
+            }
         }
+       
         
         $data = isset($request->id) ? DoctorDetails::where('id', $request->id)->first() : new DoctorDetails();
         $data->last_name = $request->last_name;

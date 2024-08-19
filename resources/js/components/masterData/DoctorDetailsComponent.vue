@@ -200,6 +200,7 @@ export default {
                 formData.append('id', this.doctor_id);
            }
             
+            formData.append('is_edit', this.isEdit);
             formData.append('last_name', this.dataValues.last_name);
             formData.append('first_name', this.dataValues.first_name);
             formData.append('middle_name', this.dataValues.middle_name);
